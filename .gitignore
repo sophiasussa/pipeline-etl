@@ -17,3 +17,5 @@ env/
 # Logs and temp files
 *.log
 *.tmp
+
+data/oscs.csv
