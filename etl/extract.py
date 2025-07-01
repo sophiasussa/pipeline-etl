@@ -6,7 +6,7 @@ logging.basicConfig(
     format='[%(levelname)s] %(message)s'
 )
 
-def from_csv(filepath: str) ->pd.DataFrame:
+def from_csv(filepath: str) -> pd.DataFrame:
     """
     Lê um arquivo CSV e retorna um DataFrame do pandas.
     
@@ -17,7 +17,7 @@ def from_csv(filepath: str) ->pd.DataFrame:
         pd.DataFrame: DataFrame com os dados carregados.
     """
     try:
-        df = pd.read_csv(filepath, encoding='utf-8', delimiter=';')
+        df = pd.read_csv(filepath, encoding='utf-8', delimiter=';', decimal=',')
         logging.info(f"CSV carregado com sucesso: {len(df)} registros")
         
         # Mostrar as primeiras linhas somente se o nível DEBUG estiver ativado
