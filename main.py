@@ -1,17 +1,11 @@
-from etl import extract, transform, load
+from etl.extract import from_csv
+from etl.transform import clean
+from etl.load import to_csv
 
-def main():
-    print("🔍 Iniciando extração...")
-    raw_data = extract.from_csv("data/oscs.csv")
-    print("✅ Extração concluída.")
+def run():
+    df = from_csv('data/oscs.csv')
+    df_limpo = clean(df)
+    to_csv(df_limpo, 'data/oscs_limpo.csv')
 
-    print("🧼 Iniciando transformação...")
-    clean_data = transform.clean(raw_data)
-    print("✅ Transformação concluída.")
-
-    print("📦 Iniciando carga...")
-    load.to_database(clean_data)
-    print("✅ Dados carregados com sucesso no SQLite.")
-
-if __name__ == "__main__":
-    main()
+    if __name__ == "__main__":
+        run()
