@@ -15,6 +15,6 @@ def test_to_sqlite(tmp_path):
     to_sqlite(df, str(db_path), "pessoas")
 
     engine = create_engine(f'sqlite:///{db_path}')
-    df_lido = pd.read_sqltable("pessoas", con=engine)
+    df_lido = pd.read_sql_table("pessoas", con=engine)
 
     pd.testing.assert_frame_equal(df_lido, df, check_dtype=False)

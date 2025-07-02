@@ -8,9 +8,6 @@ venv/
 env/
 .venv/
 
-# SQLite database files
-*.db
-
 # VSCode settings
 .vscode/
 
@@ -18,4 +15,6 @@ env/
 *.log
 *.tmp
 
-data/oscs.csv
+# Ignora arquivos gerados de dados pesados
+data/*.csv
+data/*.db
