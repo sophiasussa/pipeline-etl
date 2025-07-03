@@ -1,12 +1,17 @@
 from etl.extract import from_csv
 from etl.transform import clean
-from etl.load import to_csv, to_sqlite
+from etl.load import to_csv, to_sqlite, to_postgresql
 import logging
+import os
+from dotenv import load_dotenv
 
 logging.basicConfig(
     level=logging.INFO,
     format='[%(levelname)s] %(message)s'
 )
+
+load_dotenv()
+DB_URL = os.getenv("DB_URL")
 
 def run_pipeline():
     df = from_csv('data/oscs.csv')
@@ -18,6 +23,7 @@ def menu():
     print("1 - Exportar para CSV")
     print("2 - Exportar para SQLite")
     print("3 - Exportar para ambos")
+    print("4 - Exportar para PostgreSQL")
     print("0 - Sair")
 
 def executar_opcao(opcao, df_limpo):
@@ -28,6 +34,11 @@ def executar_opcao(opcao, df_limpo):
     elif opcao == '3':
         to_csv(df_limpo, 'data/oscs_limpo.csv')
         to_sqlite(df_limpo, 'data/banco_oscs.db', 'oscs')
+    elif opcao == '4':
+        if not DB_URL:
+            logging.error("Variável DB_URL não encontrada. Verifique o .env.")
+        else:
+            to_postgresql(df_limpo, DB_URL, 'oscs')
     elif opcao == '0':
         print("Encerrando...")
     else:

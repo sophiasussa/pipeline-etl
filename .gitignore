@@ -18,3 +18,5 @@ env/
 # Ignora arquivos gerados de dados pesados
 data/*.csv
 data/*.db
+
+.env
