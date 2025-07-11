@@ -23,7 +23,7 @@ def from_csv(filepath: str) -> pd.DataFrame:
         # Mostrar as primeiras linhas somente se o nível DEBUG estiver ativado
         if logging.getLogger().isEnabledFor(logging.DEBUG):
             logging.debug(f"Primeiras 5 linhas:\n{df.head(5).to_string()}")
-        
+    
         return df
     except Exception as e:
         logging.error(f"Erro ao ler o CSV: {e}")
