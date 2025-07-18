@@ -45,7 +45,13 @@ col2.metric("Ano Médio de Fundação", ano_medio)
 
 col3, col4 = st.columns(2)
 col3.metric("Fundação Mais Antiga", fundacao_mais_antiga)
-col4.metric("Subárea Mais Comum", subarea_mais_comum)
+col4.markdown(f"""
+    <div style="text-align:left">
+        Subárea Mais Comum<br>
+        <span style="font-size:18px;">{subarea_mais_comum}</span>
+    </div>
+""", unsafe_allow_html=True)
+
 
 # Função: gráfico de fundação
 def grafico_fundacao(df):
