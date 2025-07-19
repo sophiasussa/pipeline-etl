@@ -38,6 +38,7 @@ def executar_opcao(opcao, df_limpo):
         if not DB_URL:
             logging.error("Variável DB_URL não encontrada. Verifique o .env.")
         else:
+            df_limpo = df_limpo.sample(n=1000, random_state=42)
             to_postgresql(df_limpo, DB_URL, 'oscs')
     elif opcao == '0':
         print("Encerrando...")
