@@ -1,3 +1,4 @@
+from dotenv import load_dotenv
 import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -5,6 +6,7 @@ import streamlit as st
 import pandas as pd
 from etl.extract import from_csv
 from etl.transform import clean
+from etl.load import to_postgresql
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -14,15 +16,37 @@ def load_data():
     df_raw = from_csv('data/oscs.csv')
     return clean(df_raw)
 
-df_original = load_data()
+load_dotenv()
+db_url = os.getenv("DB_URL")
+table_name = "oscs"
+if "df_original" not in st.session_state:
+    st.session_state.df_original = None
+
 
 # Título e filtro por UF
 st.title("Dashboard de OSCs")
+
+st.subheader("Rodas pipeline ETL")
+
+if st.button("Executar ETL completo"):
+    try:
+        with st.spinner("Executando ETL..."):
+            df_clean = load_data()
+            to_postgresql(df_clean, db_url, table_name)
+            st.session_state.df_original = df_clean
+        st.success("ETL executado com sucesso!")
+    except Exception as e:
+        st.error(f"Erro ao rodar o ETL: {e}")
+
+if st.session_state.df_original is None:
+    st.warning("Execute o ETL para visualizar os dados.")
+    st.stop()
+
 uf_selecionada = st.selectbox(
     'Selecione o Estado (UF):',
-    options=['Todos'] + sorted(df_original['sigla_uf'].dropna().unique().tolist())
+    options=['Todos'] + sorted(st.session_state.df_original['sigla_uf'].dropna().unique().tolist())
 )
-df = df_original if uf_selecionada == 'Todos' else df_original[df_original['sigla_uf'] == uf_selecionada]
+df = st.session_state.df_original if uf_selecionada == 'Todos' else st.session_state.df_original[st.session_state.df_original['sigla_uf'] == uf_selecionada]
 
 st.write(f"Mostrando {len(df)} registros.")
 
