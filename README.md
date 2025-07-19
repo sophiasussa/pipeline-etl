@@ -1,7 +1,7 @@
 
-# Pipeline ETL de OSCs (Organizações da Sociedade Civil)
+# Pipeline ETL de OSCs (Organizações da Sociedade Civil) com Visualizações Interativas
 
-Este projeto realiza um **pipeline ETL completo** utilizando dados públicos de OSCs, disponíveis em: [https://mapaosc.ipea.gov.br](https://mapaosc.ipea.gov.br).
+Este projeto realiza um **pipeline ETL completo** utilizando dados públicos de  Organizações da Sociedade Civil (OSCs), disponíveis em: [https://mapaosc.ipea.gov.br](https://mapaosc.ipea.gov.br).
 
 ### Principais funcionalidades:
 
@@ -12,6 +12,14 @@ Este projeto realiza um **pipeline ETL completo** utilizando dados públicos de 
 - Gráficos e análises com matplotlib/seaborn e Metabase
 - Testes automatizados com Pytest
 - Containerização com Docker para facilitar a execução e o deploy
+
+---
+
+## Acesse o Dashboard Online
+
+Acesse a versão online do dashboard com Streamlit (⚠️ dados de teste com apenas 100 linhas):
+
+[https://oscs-pipeline-etl.onrender.com](https://oscs-pipeline-etl.onrender.com)
 
 ---
 
