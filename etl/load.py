@@ -55,7 +55,7 @@ def to_postgresql(df: pd.DataFrame, db_url: str, table_name: str):
     """
     try:
         engine = create_engine(db_url)
-        df.to_sql(table_name, con=engine, if_exists='replace', index=False, chunksize=500)
+        df.to_sql(table_name, con=engine, if_exists='replace', index=False, chunksize=50)
         logging.info(f"Tabela '{table_name}' salva com sucesso no PostgreSQL")
     except Exception as e:
         logging.error(f"Erro ao salvar no PostgreSQL: {e}")
