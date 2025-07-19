@@ -9,12 +9,15 @@ from etl.transform import clean
 from etl.load import to_postgresql
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sqlalchemy import create_engine
 
 # Carregar dados e aplicar transformações
 @st.cache_data
-def load_data():
-    df_raw = from_csv('data/oscs.csv')
-    return clean(df_raw)
+def load_data_from_db():
+    engine = create_engine(db_url)
+    query = f"SELECT * FROM {table_name}"
+    df = pd.read_sql(query, engine)
+    return df
 
 load_dotenv()
 db_url = os.getenv("DB_URL")
@@ -31,8 +34,7 @@ st.subheader("Rodas pipeline ETL")
 if st.button("Executar ETL completo"):
     try:
         with st.spinner("Executando ETL..."):
-            df_clean = load_data()
-            to_postgresql(df_clean, db_url, table_name)
+            df_clean = load_data_from_db()
             st.session_state.df_original = df_clean
         st.success("ETL executado com sucesso!")
     except Exception as e:
