@@ -15,14 +15,6 @@ Este projeto realiza um **pipeline ETL completo** utilizando dados públicos de 
 
 ---
 
-## Acesse o Dashboard Online
-
-Acesse a versão online do dashboard com Streamlit (⚠️ dados de teste com apenas 100 linhas):
-
-[https://oscs-pipeline-etl.onrender.com](https://oscs-pipeline-etl.onrender.com)
-
----
-
 ## 📁 Estrutura do Projeto
 
 ```
