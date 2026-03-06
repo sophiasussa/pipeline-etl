@@ -1,163 +1,156 @@
+# ETL Pipeline for CSOs (Civil Society Organizations) with Interactive Visualizations
 
-# Pipeline ETL de OSCs (Organizações da Sociedade Civil) com Visualizações Interativas
+This project implements a **complete ETL pipeline** using public data from Civil Society Organizations (CSOs), available at: [https://mapaosc.ipea.gov.br](https://mapaosc.ipea.gov.br).
 
-Este projeto realiza um **pipeline ETL completo** utilizando dados públicos de  Organizações da Sociedade Civil (OSCs), disponíveis em: [https://mapaosc.ipea.gov.br](https://mapaosc.ipea.gov.br).
-
-### Principais funcionalidades:
-
-- Extração de dados a partir de CSV
-- Limpeza e transformação com tratamento de nulos, datas, colunas booleanas, numéricas e padronização
-- Carga dos dados para CSV, SQLite ou PostgreSQL
-- Dashboard interativo com Streamlit para visualização rápida
-- Gráficos e análises com matplotlib/seaborn e Metabase
-- Testes automatizados com Pytest
-- Containerização com Docker para facilitar a execução e o deploy
+### Key Features:
+- Data extraction from CSV files
+- Cleaning and transformation with handling of null values, dates, boolean columns, numeric fields, and standardization
+- Data loading to CSV, SQLite, or PostgreSQL
+- Interactive Streamlit dashboard for quick visualization
+- Charts and analyses with matplotlib/seaborn and Metabase
+- Automated testing with Pytest
+- Containerization with Docker for easy execution and deployment
 
 ---
 
-## 📁 Estrutura do Projeto
+## Project Structure
 
 ```
 pipeline-etl/
 │
-├── app/                      # Interface visual do dashboard
-│   └── dashboard.py          # Dashboard interativo com Streamlit
+├── app/                      # Dashboard visual interface
+│   └── dashboard.py          # Interactive dashboard with Streamlit
 │
-├── data/                     # Arquivos de entrada e saída
-│   └── oscs.csv              # Base de dados original
+├── data/                     # Input and output files
+│   └── oscs.csv              # Original dataset
 │
-├── docs/                     # Documentação gerada automaticamente (pdoc)
+├── docs/                     # Auto-generated documentation (pdoc)
 │
-├── etl/                      # Módulos do pipeline
-│   ├── extract.py            # Função de extração
-│   ├── transform.py          # Funções de limpeza e padronização
-│   └── load.py               # Funções para exportar dados (CSV, SQLite, PostgreSQL)
+├── etl/                      # Pipeline modules
+│   ├── extract.py            # Extraction function
+│   ├── transform.py          # Cleaning and standardization functions
+│   └── load.py               # Functions for exporting data (CSV, SQLite, PostgreSQL)
 │
-├── tests/                    # Testes automatizados com pytest
+├── tests/                    # Automated tests with pytest
 │
-├── viz/                      # Gráficos auxiliares
+├── viz/                      # Auxiliary charts
 │
-├── main.py                   # Pipeline interativo com menu CLI
-├── Dockerfile                # Container Docker para rodar o pipeline
-├── requirements.txt          # Dependências do projeto
-├── .env                      # Variáveis de ambiente (ex: DB_URL)
-└── README.md                 # Este arquivo
+├── main.py                   # Interactive pipeline with CLI menu
+├── Dockerfile                # Docker container to run the pipeline
+├── requirements.txt          # Project dependencies
+├── .env                      # Environment variables (e.g., DB_URL)
+└── README.md                 # This file
 ```
 
 ---
-## Exportações Suportadas
 
-Você poderá escolher exportar os dados para:
+## Supported Export Formats
 
-- Arquivo CSV limpo (`data/oscs_limpo.csv`)
-- Banco SQLite (`data/banco_oscs.db`)
-- Banco PostgreSQL (usando a variável `DB_URL`)
-
----
-
-## Visualizações com Matplotlib & Seaborn
-
-Abaixo estão algumas análises feitas a partir dos dados tratados pelo pipeline ETL.
-
-### Distribuição por Área de Atuação
-![Distribuição por Área](viz/imagem_areas.png)
-
-### Organizações fundadas por ano
-![Ano de Fundação](viz/imagem_ano_fundacao.png)
-
-### Top Naturezas Jurídicas
-![Natureza Jurídica](viz/imagem_natureza_juridica.png)
-
-### Dispersão Geográfica das OSCs
-![Dispersão Geográfica](viz/imagem_dispersao_geografica.png)
-
----
-## Visualizações do Streamlit
-
-![Dashboard Streamlit](viz/streamlit.png)
-![Dashboard Streamlit + Filtro UF](viz/streamlit_uf.png)
+You can choose to export data to:
+- Clean CSV file (`data/oscs_limpo.csv`)
+- SQLite database (`data/banco_oscs.db`)
+- PostgreSQL database (using the `DB_URL` variable)
 
 ---
 
-## Integração com Metabase
+## Visualizations with Matplotlib & Seaborn
 
-O projeto foi pensado para integração com Metabase:
+Below are some analyses generated from data processed by the ETL pipeline.
 
-- Após a carga no PostgreSQL, basta conectar o Metabase ao banco
-- Crie dashboards, gráficos e análises com filtros (ex: por UF, por área da OSC etc.)
+### Distribution by Area of Activity
+![Distribution by Area](viz/imagem_areas.png)
 
-Exemplo de conexão:
+### Organizations Founded per Year
+![Year of Foundation](viz/imagem_ano_fundacao.png)
 
+### Top Legal Natures
+![Legal Nature](viz/imagem_natureza_juridica.png)
+
+### Geographic Dispersion of CSOs
+![Geographic Dispersion](viz/imagem_dispersao_geografica.png)
+
+---
+
+## Streamlit Visualizations
+
+![Streamlit Dashboard](viz/streamlit.png)
+![Streamlit Dashboard + State Filter](viz/streamlit_uf.png)
+
+---
+
+## Metabase Integration
+
+The project was designed for integration with Metabase:
+- After loading data into PostgreSQL, simply connect Metabase to the database
+- Create dashboards, charts, and analyses with filters (e.g., by state, by CSO area, etc.)
+
+Example connection settings:
 ```
 Host: localhost
-Porta: 5432
-Usuário: postgres
-Senha: sua_senha
-Banco de dados: oscs_db
+Port: 5432
+User: postgres
+Password: your_password
+Database: oscs_db
 ```
 
-![Dashboard Metabase](viz/dashboard.png)
+![Metabase Dashboard](viz/dashboard.png)
 
 ---
 
-## Como Executar o Projeto
+## How to Run the Project
 
-### 1. Requisitos
-
+### 1. Requirements
 - Python 3.12+
-- Docker (opcional, mas recomendado)
-- PostgreSQL local (ou em nuvem)
-- Metabase (opcional, para dashboards)
+- Docker (optional, but recommended)
+- PostgreSQL (local or cloud)
+- Metabase (optional, for dashboards)
 
 ---
 
-### 2. Executando Localmente (sem Docker)
+### 2. Running Locally (without Docker)
 
-Instale as dependências:
-
+Install the dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-Crie o arquivo `.env` com a URL do banco PostgreSQL (opcional):
-
+Create the `.env` file with the PostgreSQL database URL (optional):
 ```
-DB_URL=postgresql://usuario:senha@localhost:5432/nome_do_banco
+DB_URL=postgresql://user:password@localhost:5432/database_name
 ```
 
-Execute o pipeline:
-
+Run the pipeline:
 ```bash
 python main.py
 ```
 
 ---
 
-### 3. Executando com Docker
+### 3. Running with Docker
 
-**1. Gere a imagem Docker:**
-
+**1. Build the Docker image:**
 ```bash
 docker build -t etl-oscs .
 ```
 
-**2. Rode o pipeline:**
-
+**2. Run the pipeline:**
 ```bash
 docker run --rm -it --env-file .env -v %cd%/data:/app/data etl-oscs
 ```
+
 ---
-## Testes
 
-Os módulos podem ser testados individualmente.
-Exemplo com `pytest`:
+## Tests
 
+Modules can be tested individually.
+
+Example with `pytest`:
 ```bash
 pytest tests/
 ```
 
 ---
 
-## Licença
+## License
 
-Este projeto está sob a licença MIT.
+This project is licensed under the MIT License.
